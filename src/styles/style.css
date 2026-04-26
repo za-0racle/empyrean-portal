@@ -1,0 +1,2337 @@
+
+/* =========================================
+   1. GLOBAL FOUNDATION
+   ========================================= */
+:root {
+  --primary: #4f46e5;
+  --primary-vibrant: #6366f1;
+  --gold: #f59e0b;
+  --dark-bg: #020617;
+  --text-white: #ffffff;
+  --text-gray: #94a3b8;
+  --glass: rgba(255, 255, 255, 0.03);
+  --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Poppins', 'Open Sans', sans-serif;
+  background-color: #ffffff;
+  color: var(--dark-bg);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 25px;
+}
+
+
+/*====================*/
+/* 2. NAVBAR STYLING  */
+/*====================*/
+
+.navbar {
+  background: #ffffff !important;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+}
+
+.main-nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* LOGO PROTECTION - Ensures it never shrinks or vanishes */
+.logo a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  min-width: 200px; /* Forces space for the brand */
+  flex-shrink: 0;   /* Prevents oblivion/squashing */
+}
+
+.logo img { height: 45px; width: auto; }
+
+.logo-text { display: flex; flex-direction: column; }
+
+.brand-name { 
+  font-weight: 800; 
+  color: #020617 !important; /* Force Navy Black */
+  font-size: 1.1rem; 
+  line-height: 1;
+}
+
+.brand-sub { 
+  font-size: 0.7rem; 
+  color: #4f46e5; 
+  font-weight: 700; 
+  text-transform: uppercase;
+}
+
+/* DESKTOP LINKS */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  align-items: center;
+}
+
+.nav-links a, .logout-link-btn {
+  text-decoration: none;
+  color: #020617;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+
+.portal-btn {
+  background: #4f46e5 !important;
+  color: #ffffff !important;
+  padding: 10px 22px;
+  border-radius: 50px;
+}
+
+/* HAMBURGER (Closed State) */
+.hamburger {
+  display: none; 
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 3000;
+  padding: 10px;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #020617 !important; /* Force visible dark bars */
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+.logout-link-btn {
+  background: rgba(239, 68, 68, 0.1); /* Subtle red tint */
+  color: #ef4444 !important; /* Professional red */
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-link-btn:hover {
+  background: #ef4444;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+/*==============================*/
+/* Nav MOBILE RESPONSIVENESS    */
+/*==============================*/
+
+@media (max-width: 992px) {
+  .hamburger { display: flex; }
+
+  /* Hamburger animates to "X" and turns Gold */
+  .hamburger.is-active .bar { background-color: #f59e0b !important; }
+  .hamburger.is-active .bar:nth-child(2) { opacity: 0; }
+  .hamburger.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .hamburger.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  /* SLEEK DRAWER */
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Hidden by default */
+    width: 280px;
+    height: 100vh;
+    background: #020617 !important; /* Force Deep Navy */
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 40px;
+    transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.4);
+    z-index: 2500;
+    display: flex !important; /* Force visibility when it moves into view */
+  }
+
+  /* When JS adds .active class */
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-links li { margin-bottom: 30px; width: 100%; }
+
+  .nav-links a {
+    color: #ffffff !important;
+    font-size: 1.3rem;
+    width: 100%;
+  }
+
+  /* BACKGROUND OVERLAY */
+  .nav-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 2400;
+  }
+  .nav-overlay.active { opacity: 1; visibility: visible; }
+}
+
+/* =========================================
+   3. THE CLASSIC GLOBAL FOOTER
+   ========================================= */
+.footer {
+  background: var(--dark-bg);
+  color: var(--text-white);
+  padding: 80px 0 0;
+  margin-top: 100px;
+  border-top: 1px solid var(--glass);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 0.8fr; /* Classic balanced layout */
+  gap: 50px;
+  padding-bottom: 60px;
+}
+
+/* Brand Styling */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.footer-logo img { height: 40px; }
+
+.brand-name-foot {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--text-white);
+}
+
+.footer-motto {
+  font-size: 0.9rem;
+  color: var(--text-gray);
+  font-style: italic;
+  margin-bottom: 25px;
+  border-left: 2px solid var(--primary);
+  padding-left: 15px;
+}
+
+.footer-contact-main a {
+  display: block;
+  color: var(--primary-vibrant);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Hub/Office Styling */
+.footer-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 35px;
+  font-weight: 800;
+}
+
+.hub-item {
+  margin-bottom: 30px;
+}
+
+.hub-label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.hub-item p {
+  font-size: 0.85rem;
+  color: var(--text-gray);
+  line-height: 1.5;
+}
+
+.hub-link {
+  color: var(--text-white);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.status-badge {
+  font-size: 0.65rem;
+  background: var(--glass);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* Navigation & Socials */
+.footer-nav { list-style: none; margin-bottom: 40px; }
+.footer-nav li { margin-bottom: 15px; }
+.footer-nav a {
+  color: var(--text-gray);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.footer-nav a:hover { color: var(--gold); padding-left: 8px; }
+
+.highlight-link { color: var(--gold) !important; font-weight: 700; }
+
+.footer-socials {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  width: 42px;
+  height: 42px;
+  background: var(--glass);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.social-icon:hover {
+  background: var(--primary);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+}
+
+/* Bottom Strip */
+.footer-bottom {
+  padding: 25px 0;
+  border-top: 1px solid var(--glass);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-gray);
+}
+
+.footer-legal a {
+  color: var(--text-gray);
+  text-decoration: none;
+  margin-left: 20px;
+}
+   /* MOBILE OPTIMIZATION */
+ 
+@media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 650px) {
+  .footer-grid { grid-template-columns: 1fr; text-align: center; }
+  .footer-motto { border-left: none; padding-left: 0; }
+  .social-icon { margin: 0 auto; }
+  .footer-bottom { flex-direction: column; gap: 15px; }
+}
+
+/* =========================================
+   4. PREMIUM WHATSAPP FLOATING BUTTON
+   ========================================= */
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 2000;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.wa-content {
+  background: #25d366;
+  color: white;
+  padding: 12px 28px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+  animation: wa-pulse 2s infinite;
+  transition: all 0.3s ease;
+}
+
+.wa-text {
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.wa-content i {
+  font-size: 1.6rem;
+}
+
+/* Hover Effects from your original design */
+.wa-content:hover {
+  transform: translateY(-5px) scale(1.03);
+  background: #128c7e;
+  box-shadow: 0 15px 30px rgba(18, 140, 126, 0.5);
+}
+
+/* The Classic Pulse Animation */
+@keyframes wa-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+/* Mobile Responsiveness for WhatsApp */
+@media (max-width: 768px) {
+  .whatsapp-float {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .wa-text {
+    display: none; /* Hide text on mobile to save space */
+  }
+  
+  .wa-content {
+    padding: 15px;
+    border-radius: 50%; /* Make it a circular button on mobile */
+  }
+}
+
+/* =========================================
+   5. PREMIUM HERO SECTION
+   ========================================= */
+.hero {
+  position: relative;
+  min-height: 85vh; /* Optimal height for all screens */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #020617; /* Fallback deep navy */
+  /* Isolated Background */
+  background-image: url('/bg4.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: cover !important;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  /* Classic Gradient for readability */
+  background: linear-gradient(to right, rgba(2, 6, 23, 0.95) 20%, rgba(2, 6, 23, 0.4) 100%);
+  z-index: 1;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+.hero-content {
+  max-width: 850px;
+  animation: heroFadeIn 1s ease-out;
+}
+
+/* Badge Styling */
+.motto-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: var(--gold);
+  color: #000;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  font-weight: 800;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+/* Responsive Typography (Global Standard) */
+.hero-title {
+  font-size: clamp(2.2rem, 5vw, 4.2rem); /* Scales automatically */
+  line-height: 1.1;
+  color: #ffffff;
+  font-weight: 800;
+  margin-bottom: 25px;
+}
+
+.hero-title .highlight {
+  color: var(--gold);
+  background: linear-gradient(to right, #f59e0b, #fbbf24);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: #cbd5e1; /* Soft gray for high-end look */
+  max-width: 600px;
+  margin-bottom: 45px;
+  line-height: 1.7;
+}
+
+/* Premium Buttons */
+.hero-btns {
+  display: flex;
+  gap: 20px;
+}
+
+.btn-hero-primary {
+  background: var(--primary);
+  color: white;
+  padding: 18px 38px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+}
+
+.btn-hero-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 18px 38px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  backdrop-filter: blur(10px);
+  transition: 0.3s;
+}
+
+.btn-hero-primary:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(79, 70, 229, 0.5);
+  background: #6366f1;
+}
+
+.btn-hero-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: white;
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS (HERO)
+   ========================================= */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 70vh;
+    text-align: center;
+    background-position: 70% center !important; /* Shows more of the image subject on small screens */
+  }
+
+  .hero-overlay {
+    background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.7));
+  }
+
+  .hero-content {
+    margin: 0 auto;
+    padding: 0 10px;
+  }
+
+  .hero-btns {
+    flex-direction: column; /* Stack buttons on mobile */
+    gap: 15px;
+    align-items: center;
+  }
+
+  .btn-hero-primary, .btn-hero-secondary {
+    width: 100%;
+    max-width: 300px;
+    padding: 15px 0;
+  }
+}
+
+/* Smooth Animation */
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   6. SPECIALIZED PROGRAMS GRID
+   ========================================= */
+.programs-section {
+  padding: 100px 0;
+  background: #ffffff;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 70px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.subtitle {
+  color: var(--gold);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.vibrant-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--dark-bg);
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+/* The Grid */
+.program-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+/* The Card Base */
+.program-card {
+  background: #ffffff;
+  padding: 45px 35px;
+  border-radius: 24px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.03);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Featured Card (Coding for Kids) */
+.program-card.featured {
+  border: 2px solid var(--primary);
+  background: linear-gradient(to bottom, #ffffff, #f0f4ff);
+  box-shadow: 0 20px 40px rgba(79, 70, 229, 0.1);
+}
+
+.program-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 25px 50px rgba(2, 6, 23, 0.08);
+  border-color: var(--primary);
+}
+
+/* Card Icons with Gradient */
+.card-icon {
+  font-size: 2.8rem;
+  margin-bottom: 25px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-vibrant));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.4s;
+}
+
+.program-card:hover .card-icon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.program-card h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--dark-bg);
+}
+
+.program-card p {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  flex-grow: 1;
+}
+
+/* Card Metadata (Students/Level) */
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid #f1f5f9;
+  margin-bottom: 20px;
+}
+
+.card-meta span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-meta i {
+  color: var(--gold);
+}
+
+/* The Curriculum Link */
+.btn-text {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.btn-text:hover {
+  gap: 15px; /* Arrow moves on hover */
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS (PROGRAMS)
+   ========================================= */
+@media (max-width: 768px) {
+  .programs-section {
+    padding: 60px 0;
+  }
+  
+  .program-grid {
+    grid-template-columns: 1fr; /* Single column on phones */
+    padding: 0 10px;
+  }
+
+  .program-card {
+    padding: 35px 25px;
+  }
+}
+
+/* =========================================
+   7. TUTORS SECTION & MOBILE CAROUSEL
+   ========================================= */
+.tutors-section {
+  padding: 80px 0;
+  background: #f8fafc;
+}
+
+/* Desktop Grid */
+.tutor-slider {
+  display: grid;
+  /* 3 columns on desktop for better fit */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.tutor-card {
+  display: flex;
+  flex-direction: column; /* Vertical layout makes cards smaller */
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(2, 6, 23, 0.04);
+  border: 1px solid #e2e8f0;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.tutor-image {
+  width: 100%;
+  height: auto; 
+  aspect-ratio: 4 / 5; /* Professional portrait ratio like LinkedIn/Oxford */
+  background-color: #f1f5f9; /* Fallback color in case image loads slow */
+  overflow: hidden;
+}
+
+.tutor-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  object-position: center top; 
+  transition: 0.5s;
+}
+
+.tutor-card:hover .tutor-image img{
+  transform: scale(1.05);
+}
+.tutor-info { 
+  padding: 25px; 
+  text-align: left;
+}
+
+.tutor-badge {
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.tutor-info h3 { 
+  font-size: 1.3rem; 
+  margin: 8px 0; 
+  color: var(--dark-bg); 
+}
+.specialty { 
+  color: var(--gold); 
+  font-weight: 700; 
+  margin-bottom: 12px; 
+  font-size: 0.85rem; 
+}
+
+.bio { 
+  color: var(--text-gray); 
+  font-size: 0.85rem; 
+  margin-bottom: 20px; 
+  flex-grow: 1.5; 
+}
+
+.tutor-social { 
+  display: flex; 
+  gap: 15px; 
+}
+.tutor-social a { 
+  color: #cbd5e1; 
+  font-size: 1.2rem; 
+  transition: 0.3s; 
+}
+.tutor-social a:hover { 
+  color: var(--primary);
+ }
+
+ /* =========================================
+   RESOURCE UPLOADER STYLING Tutor
+   ========================================= */
+.resource-upload-form {
+  background: #f8fafc;
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px dashed var(--primary);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.resource-upload-form input, 
+.resource-upload-form select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  font-family: inherit;
+}
+
+/* Mobile Fix for Form */
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr; /* Stack inputs on phones */
+    gap: 0;
+  }
+}
+
+/* =========================================
+   Tutor  MOBILE CAROUSEL LOGIC (Awesome UX)
+   ========================================= */
+@media (max-width: 992px) {
+  .tutor-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding: 40px 10%; /* Shows preview of cards on side */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbar for clean look */
+  .tutor-slider::-webkit-scrollbar { display: none; }
+
+  .tutor-card {
+    min-width: 85vw; /* Almost full width */
+    flex-direction: column; /* Stack image and text */
+    scroll-snap-align: center;
+    transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+    filter: blur(2px) grayscale(50%); /* Blurry at back */
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+
+  /* This selects the card in the center of the viewport */
+  /* Note: In pure CSS, we can't easily detect center without JS, 
+     so we use a scroll-snap-align approach. For a 100% "Center Big" effect, 
+     we add this small logic: */
+  
+  .tutor-card:focus-within,
+  .tutor-card:active,
+  .tutor-card:hover {
+    filter: blur(0) grayscale(0);
+    opacity: 1;
+    transform: scale(1);
+    z-index: 10;
+  }
+
+  .tutor-image { flex: 0 0 250px; width: 100%; }
+}
+
+@media (max-width: 600px) {
+    .tutor-card {
+        min-width: 80vw;
+    }
+}
+
+/* =========================================
+   8. GLOBAL LOGIN & sIGNUP PORTAL STYLING (Isolated)
+   ========================================= */
+
+/* The Wrapper - This defines the background of the whole login screen */
+.auth-portal-wrapper {
+  min-height: 90vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc; /* Clean, global light-gray */
+  padding: 60px 20px;
+  /* This ensures NO hero background images leak in */
+  background-image: none !important;
+  box-sizing: border-box; 
+}
+
+/* --- Tightened & Aligned Auth Header --- */
+.auth-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Forces perfect horizontal centering */
+  text-align: center;
+  margin-bottom: 35px; /* Logical gap before the form starts */
+}
+
+.auth-logo {
+  height: 60px; /* Uniform height */
+  width: auto;
+  margin-bottom: 15px; /* Tightened space below logo */
+  display: block;
+}
+
+.auth-badge {
+  display: inline-block;
+  color: var(--primary);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  margin-bottom: 10px; /* Gap between badge and Title */
+  opacity: 0.8;
+}
+
+.auth-header h2 {
+  margin: 0; /* Remove default browser margins */
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--dark-bg);
+  line-height: 1.2;
+}
+
+.auth-header p {
+  margin: 8px 0 0 0; /* Only top margin to push away from h2 */
+  font-size: 0.95rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* The Card - Modern, Vibrant, and Classic */
+.auth-card {
+  background: #ffffff;
+  padding: 50px 40px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 460px; /* Standard Global size for Portals */
+  box-shadow: 0 20px 50px rgba(2, 6, 23, 0.1); /* Deep soft shadow */
+  border: 1px solid #e2e8f0;
+  text-align: center;
+  animation: portalFadeUp 0.5s ease-out;
+}
+
+/* Auth Specific Inputs */
+.auth-input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.auth-input-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--dark-bg);
+  margin-bottom: 8px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper i {
+  position: absolute;
+  left: 15px;
+  color: #94a3b8;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 14px 16px 14px 48px;
+  background: #f1f5f9;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  font-family: inherit;
+  transition: 0.3s;
+  font-size: 16px;
+  color: var(--dark-bg);
+  transition: 0.3s ease;
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+/* The Button - Vibrant Indigo */
+.btn-portal-primary {
+  width: 100%;
+  padding: 16px;
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-top: 10px;
+}
+
+.btn-portal-primary:hover {
+  background: #4338ca;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+}
+
+/* Auth Footer */
+.auth-footer {
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+  color: #64748b;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth-footer a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.auth-footer a:hover{
+  text-decoration: underline;
+}
+
+/* --- MOBILE RESPONSIVENESS TWEAKS --- */
+
+@media (max-width: 768px) {
+  .auth-portal-wrapper {
+    padding: 40px 15px;
+  }
+  .auth-card {
+    padding: 40px 25px; /* Less horizontal padding on tablets/phones */
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-header h2 {
+    font-size: 1.75rem; /* Slightly smaller heading on tiny phones */
+  }
+  
+  .auth-card {
+    padding: 35px 20px;
+    border-radius: 20px; /* Softer corners for small screens */
+  }
+
+  .btn-portal-primary {
+    padding: 14px; /* Slightly slimmer button for small thumbs */
+  }
+}
+
+/* Entrance Animation */
+@keyframes authFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   Signup Specific Tweaks
+   ========================================= */
+
+/* If the form is long, ensure it doesn't get cut off on small phones */
+@media (max-height: 700px) {
+  .auth-portal-wrapper {
+    align-items: flex-start; /* Allows scrolling from the top */
+    padding-top: 20px;
+  }
+}
+
+/* Style for the 'Full Name' icon specifically */
+.input-wrapper i.fa-user {
+  color: var(--primary); /* Makes the name field feel welcoming */
+}
+
+/* Success State visual (Optional) */
+.auth-input-group input:valid {
+  border-color: rgba(16, 185, 129, 0.2); /* Subtle green hint for valid input */
+}
+
+
+/* =========================================
+   9. STUDENT DASHBOARD (Global Standard)
+   ========================================= */
+
+.dashboard-container {
+  display: grid;
+  /* Sidebar | Main Content | Right Schedule */
+  grid-template-columns: 280px 1fr 320px;
+  min-height: calc(100vh - 80px); /* Subtracts Navbar height */
+  background-color: #f1f5f9;
+}
+
+/* --- SIDEBAR STYLING --- */
+.dash-sidebar {
+  background: var(--dark-bg);
+  color: white;
+  padding: 40px 20px;
+  position: sticky;
+  top: 80px;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.user-profile {
+  text-align: center;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-vibrant));
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0 auto 15px;
+  border: 3px solid var(--gold);
+}
+
+.user-profile h3 { font-size: 1.1rem; margin-bottom: 5px; }
+.student-id { font-size: 0.7rem; color: var(--text-gray); letter-spacing: 1px; }
+
+.dash-nav {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dash-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.dash-nav a.active, .dash-nav a:hover {
+  background: rgba(255,255,255,0.05);
+  color: white;
+}
+
+.dash-nav a.active i { color: var(--gold); }
+
+.logout-link {
+  margin-top: auto;
+  color: #ef4444 !important; /* Global warning red */
+}
+
+/* --- MAIN CONTENT AREA --- */
+.dash-content {
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.dash-header h2 { font-weight: 800; color: var(--dark-bg); }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  border: 1px solid #e2e8f0;
+}
+
+.stat-label { font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase; }
+.stat-value { display: block; font-size: 2.2rem; font-weight: 800; color: var(--primary); margin-top: 5px; }
+
+/* --- COURSE CARDS --- */
+.my-courses h3 { margin-bottom: 20px; font-weight: 800; }
+
+.dash-course-card {
+  display: flex;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 1px solid #e2e8f0;
+  transition: 0.3s;
+}
+
+.dash-course-card:hover { transform: translateX(10px); border-color: var(--primary); }
+
+.dash-course-card img {
+  width: 180px;
+  object-fit: cover;
+}
+
+.dash-course-info { padding: 25px; flex: 1; }
+.dash-course-info h4 { font-size: 1.2rem; margin-bottom: 8px; }
+.dash-course-info p { font-size: 0.85rem; color: #64748b; }
+
+.progress-container {
+  height: 8px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  margin: 15px 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, var(--primary), var(--accent-neon));
+  border-radius: 10px;
+}
+
+.course-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.course-footer span { font-size: 0.8rem; font-weight: 700; color: var(--dark-bg); }
+
+.btn-resume {
+  background: var(--dark-bg);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* --- RIGHT SCHEDULE SIDEBAR --- */
+.dash-schedule {
+  background: white;
+  padding: 40px 25px;
+  border-left: 1px solid #e2e8f0;
+}
+
+.dash-schedule h3 { margin-bottom: 25px; font-weight: 800; }
+
+.schedule-card {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8fafc;
+  border-radius: 16px;
+}
+
+.date-box {
+  background: var(--primary);
+  color: white;
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 55px;
+}
+
+.date-box .day { display: block; font-size: 1.2rem; font-weight: 800; }
+.date-box .month { font-size: 0.65rem; text-transform: uppercase; font-weight: 700; }
+
+.class-details h4 { font-size: 0.95rem; margin-bottom: 4px; }
+.class-details p { font-size: 0.8rem; color: #64748b; }
+
+.btn-full {
+  width: 100%;
+  padding: 12px;
+  background: none;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* dashboard Resources link. */
+
+.resource-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.res-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f5f9;
+  color: var(--dark-bg);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid #e2e8f0;
+  transition: 0.3s;
+}
+
+.res-link i {
+  color: var(--primary);
+}
+
+.res-link:hover {
+  background: white;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Highlight for Assignments */
+.res-link.assignment {
+  background: #fffbeb;
+  border-color: var(--gold);
+}
+
+.res-link.assignment i {
+  color: var(--gold);
+}
+
+/* =========================================
+   DASHBOARD MOBILE RESPONSIVENESS
+   ========================================= */
+
+@media (max-width: 1200px) {
+  .dashboard-container {
+    grid-template-columns: 80px 1fr; /* Sidebar collapses to icons */
+  }
+  .dash-schedule { display: none; } /* Hide schedule on tablets */
+  .dash-sidebar span, .user-profile h3, .student-id { display: none; }
+  .avatar { width: 45px; height: 45px; font-size: 1.2rem; }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    grid-template-columns: 1fr; /* Stack everything */
+  }
+  
+  .dash-sidebar {
+    position: relative;
+    top: 0;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 15px;
+  }
+
+  .user-profile { border-bottom: none; padding-bottom: 0; padding-right: 20px; border-right: 1px solid rgba(255,255,255,0.1); }
+  .dash-nav { flex-direction: row; margin-top: 0; padding-left: 20px; }
+  .dash-nav a { padding: 10px; }
+  
+  .stats-grid { grid-template-columns: 1fr; } /* Stats stack on mobile */
+  
+  .dash-course-card { flex-direction: column; }
+  .dash-course-card img { width: 100%; height: 180px; }
+}
+
+/* =========================================
+   10 ADMIN COMMAND CENTER (Global BI Look)
+   ========================================= */
+
+.admin-container {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  background-color: #f8fafc; /* Lighter gray than student dash */
+}
+
+/* --- ADMIN SIDEBAR --- */
+.admin-sidebar {
+  background: #0f172a; /* Deep Slate */
+  color: white;
+  padding: 40px 20px;
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.admin-logo {
+  font-weight: 900;
+  font-size: 1rem;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 50px;
+  text-align: center;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 10px;
+}
+
+.admin-nav a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #94a3b8;
+  padding: 14px 18px;
+  text-decoration: none;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.admin-nav a.active, .admin-nav a:hover {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+/* --- ADMIN MAIN AREA --- */
+.admin-main {
+  padding: 40px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.admin-header h2 { font-weight: 800; color: #0f172a; }
+
+.btn-primary-sm {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+}
+
+/* --- ADMIN STATS --- */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 45px;
+}
+
+.stat-box {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+.stat-box i {
+  width: 50px;
+  height: 50px;
+  background: #f1f5f9;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+.stat-box.warning i { color: var(--gold); background: #fffbeb; }
+
+.stat-box .label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; font-weight: 700; }
+.stat-box .value { display: block; font-size: 1.8rem; font-weight: 800; color: #0f172a; }
+
+/* --- ADMIN TABLE --- */
+.admin-table-section {
+  background: white;
+  padding: 35px;
+  border-radius: 24px;
+  border: 1px solid #e2e8f0;
+}
+
+.admin-table-section h3 { margin-bottom: 25px; }
+
+.admin-table-responsive {
+  overflow-x: auto; /* The global mobile fix */
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th {
+  text-align: left;
+  padding: 15px;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.admin-table td {
+  padding: 18px 15px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+}
+
+/* Status Pills */
+.status-pill {
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.status-pill.active { background: #dcfce7; color: #15803d; }
+.status-pill.pending { background: #fffbeb; color: #b45309; }
+
+.btn-edit {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-edit:hover { background: #f8fafc; border-color: var(--primary); color: var(--primary); }
+
+/* =========================================
+   ADMIN MOBILE RESPONSIVENESS
+   ========================================= */
+
+@media (max-width: 992px) {
+  .admin-container {
+    grid-template-columns: 1fr; /* Stack sidebar on top */
+  }
+
+  .admin-sidebar {
+    padding: 20px;
+    height: auto;
+  }
+
+  .admin-nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+  }
+
+  .admin-nav a {
+    white-space: nowrap;
+    margin-bottom: 0;
+  }
+
+  .admin-logo { margin-bottom: 20px; }
+
+  .admin-stats {
+    grid-template-columns: 1fr; /* Stack boxes */
+  }
+}
+
+/* =========================================
+   11. INSTRUCTOR COMMAND CENTER
+   ========================================= */
+
+.instructor-container {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+/* --- TUTOR SIDEBAR --- */
+.ins-sidebar {
+  background: #0f172a; /* Deep Slate Black for Staff */
+  color: white;
+  padding: 40px 20px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.ins-brand {
+  color: var(--gold);
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  margin-bottom: 50px;
+  text-align: center;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 12px;
+}
+
+.ins-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+
+.ins-nav a.active, .ins-nav a:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.ins-nav a.active i { color: var(--gold); }
+
+/* --- MAIN WORKSPACE --- */
+.ins-main {
+  padding: 50px;
+}
+
+.ins-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 45px;
+}
+
+.ins-header h2 { font-weight: 800; font-size: 1.8rem; color: #0f172a; }
+.ins-header p { color: #64748b; margin-top: 5px; }
+
+/* --- TUTOR METRICS --- */
+.ins-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.ins-stat-card {
+  background: white;
+  padding: 30px;
+  border-radius: 24px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+}
+
+.ins-stat-card .label { font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+.ins-stat-card .value { display: block; font-size: 2.2rem; font-weight: 800; color: #0f172a; margin: 10px 0; }
+
+.trend { font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+.trend.positive { color: var(--accent-neon); }
+.trend.warning { color: var(--gold); }
+
+/* --- SUBMISSIONS & OVERVIEW GRID --- */
+.ins-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 30px;
+}
+
+.ins-section {
+  background: white;
+  padding: 35px;
+  border-radius: 24px;
+  border: 1px solid #e2e8f0;
+}
+
+.ins-section h3 { margin-bottom: 25px; font-weight: 800; color: #0f172a; }
+
+/* Submission Items */
+.sub-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.sub-info strong { display: block; font-size: 1rem; color: #1e293b; }
+.sub-info span { font-size: 0.8rem; color: #94a3b8; }
+
+.btn-grade {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-grade:hover { background: var(--dark-bg); transform: translateY(-2px); }
+
+/* Mini Course Progress */
+.mini-course-card {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.course-header { display: flex; justify-content: space-between; margin-bottom: 15px; }
+.course-header h4 { font-size: 1rem; }
+.course-header span { font-size: 0.75rem; color: var(--primary); font-weight: 700; }
+
+.progress-info span { font-size: 0.8rem; color: #64748b; margin-bottom: 10px; display: block; }
+.progress-bar-bg { height: 8px; background: #e2e8f0; border-radius: 10px; }
+.progress-bar-fill { height: 100%; background: var(--primary); border-radius: 10px; }
+
+/* =========================================
+   INSTRUCTOR MOBILE RESPONSIVENESS
+   ========================================= */
+
+@media (max-width: 1100px) {
+  .ins-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 992px) {
+  .instructor-container { grid-template-columns: 1fr; }
+  
+  .ins-sidebar {
+    height: auto;
+    position: relative;
+    padding: 20px;
+  }
+
+  .ins-nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+
+  .ins-nav a { white-space: nowrap; margin-bottom: 0; padding: 10px 20px; }
+  
+  .ins-main { padding: 30px 20px; }
+  
+  .ins-stats { grid-template-columns: 1fr; }
+}
+
+/* =========================================
+   12. COURSE CATALOG & MARKETPLACE
+   ========================================= */
+
+.catalog-hero {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.catalog-hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--dark-bg);
+  margin-bottom: 15px;
+}
+
+.catalog-hero p {
+  color: #64748b;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+/* --- SEARCH & FILTER BAR --- */
+.filter-container {
+  display: flex;
+  gap: 20px;
+  max-width: 850px;
+  margin: 0 auto;
+  background: white;
+  padding: 10px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.search-wrapper {
+  flex: 2;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-wrapper i {
+  position: absolute;
+  left: 20px;
+  color: #94a3b8;
+}
+
+.search-wrapper input {
+  width: 100%;
+  padding: 15px 15px 15px 50px;
+  border: 1px solid #f1f5f9;
+  background: #f8fafc;
+  border-radius: 12px;
+  font-size: 16px; /* Prevents mobile zoom */
+  font-family: inherit;
+  transition: 0.3s;
+}
+
+.search-wrapper input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+#category-filter {
+  flex: 1;
+  padding: 0 20px;
+  border: 1px solid #f1f5f9;
+  background: #f8fafc;
+  border-radius: 12px;
+  font-weight: 600;
+  color: var(--dark-bg);
+  cursor: pointer;
+}
+
+/* --- COURSE GRID SECTION --- */
+.catalog-grid-section {
+  padding: 80px 0;
+  background: #ffffff;
+}
+
+.course-market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 35px;
+}
+
+/* --- THE MARKET CARD --- */
+.market-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #f1f5f9;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.market-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(2, 6, 23, 0.1);
+  border-color: var(--primary);
+}
+
+.card-img-wrapper {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.card-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top; /* Keeps subjects' heads visible */
+  transition: 0.5s;
+}
+
+.market-card:hover .card-img-wrapper img {
+  transform: scale(1.1);
+}
+
+.price-tag {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--dark-bg);
+  color: var(--gold);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.card-content {
+  padding: 30px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cat-label {
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+.market-card h3 {
+  font-size: 1.3rem;
+  color: var(--dark-bg);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.tutor-name {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+.course-stats {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-top: 1px solid #f1f5f9;
+  margin-bottom: 20px;
+}
+
+.course-stats span {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.course-stats i {
+  color: var(--gold);
+}
+
+.btn-enroll-full {
+  width: 100%;
+  padding: 15px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: auto;
+}
+
+.btn-enroll-full:hover {
+  background: var(--dark-bg);
+  color: var(--gold);
+}
+
+/* =========================================
+   CATALOG MOBILE RESPONSIVENESS
+   ========================================= */
+
+@media (max-width: 768px) {
+  .filter-container {
+    flex-direction: column;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .search-wrapper, #category-filter {
+    width: 100%;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+
+  #category-filter {
+    padding: 15px;
+  }
+
+  .course-market-grid {
+    grid-template-columns: 1fr;
+    padding: 0 10px;
+  }
+}
+
+/* =========================================
+   13. SUCCESS STORIES & REVIEWS (Fixed & Optimized)
+   ========================================= */
+.reviews-section {
+  padding: 80px 0;
+  background: var(--gray-light);
+  width: 100%;
+  overflow: hidden; /* Prevents the whole page from shaking horizontally */
+}
+
+.reviews-slider {
+  display: flex;
+  justify-content: flex-start; /* Start from left to prevent clipping */
+  gap: 25px;
+  
+  /* Matches your global container padding (5%) */
+  /* This ensures the first card aligns with your Logo/Hero text */
+  padding: 30px 5%; 
+  
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  
+  /* Adds smooth "Snap" behavior for a high-end feel */
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 5%; 
+  -webkit-overflow-scrolling: touch; /* Smooth swiping for iPhone */
+}
+
+/* Hide scrollbar for a "Netflix Ribbon" look */
+.reviews-slider::-webkit-scrollbar { 
+  display: none; 
+}
+
+.review-card {
+  flex: 0 0 320px; /* Locks width: prevents squashing */
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(2, 6, 23, 0.03);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+  scroll-snap-align: start; /* Locks card to the left margin when swiping */
+}
+
+.review-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(79, 70, 229, 0.12);
+  border-color: var(--primary);
+}
+
+/* Typography Consistency */
+.stars {
+  color: var(--gold);
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+}
+
+.review-text {
+  font-size: 0.95rem;
+  color: var(--dark-bg);
+  line-height: 1.6;
+  font-style: italic;
+  margin-bottom: 25px;
+  flex-grow: 1;
+}
+
+/* Reviewer Info Alignment */
+.review-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto; /* Pushes profile to bottom of card */
+}
+
+.reviewer-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary);
+}
+
+.reviewer-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.name-row strong {
+  font-size: 0.9rem;
+  color: var(--dark-bg);
+}
+
+.verified-badge {
+  color: var(--accent-neon);
+  font-size: 0.8rem;
+}
+
+.location {
+  font-size: 0.75rem;
+  color: var(--text-light);
+}
+
+/* Action Button / Subject Tag */
+.btn-project-spotlight {
+  width: 100%;
+  padding: 12px;
+  background: #f0f4ff;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: 0.3s;
+}
+
+.btn-project-spotlight:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* =========================================
+   REVIEWS - DYNAMIC ALIGNMENT
+   ========================================= */
+/* On very wide screens, center the cards instead of scrolling */
+@media (min-width: 1400px) {
+  .reviews-slider {
+    justify-content: center;
+    overflow-x: hidden;
+  }
+}
+
+/* Mobile Focus Logic */
+@media (max-width: 992px) {
+  .reviews-slider {
+    justify-content: flex-start;
+    padding: 20px 8%;
+    scroll-snap-type: x mandatory;
+  }
+
+  .review-card {
+    min-width: 285px;
+    /* REMOVED: filter: blur(...) */
+    opacity: 0.7; /* Keep a slight fade so the user knows which one is center */
+    transform: scale(0.92);
+    transition: all 0.4s ease;
+  }
+
+  /* When the card is in the center, it becomes bright and full size */
+  .review-card.focused-review {
+    /* REMOVED: filter: blur(0px) */
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    z-index: 10;
+  }
+}
+/* =========================================
+   14 GLOBAL ADMISSIONS Contact FORM
+   ========================================= */
+.contact-section {
+  padding: 100px 0;
+  background: white;
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr; /* 60/40 Split */
+  gap: 60px;
+  align-items: start;
+}
+
+.contact-form-wrapper {
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+  border: 1px solid #f1f5f9;
+}
+
+.form-header { margin-bottom: 35px; }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Contact Method Selection */
+.contact-method-group {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  background: #f8fafc;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition: 0.3s;
+}
+
+.radio-label input { width: auto; margin: 0; }
+.radio-label:has(input:checked) {
+  border-color: var(--primary);
+  background: #f0f4ff;
+}
+
+/* Success Box Styling */
+.success-box {
+  text-align: center;
+  padding: 40px 0;
+  animation: portalFadeUp 0.5s ease;
+}
+
+.success-box i { font-size: 4rem; color: var(--accent-neon); margin-bottom: 20px; }
+
+/* TRUST SIDEBAR */
+.contact-trust-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.trust-card {
+  background: var(--dark-bg);
+  color: white;
+  padding: 40px;
+  border-radius: 24px;
+}
+
+.trust-card h4 {
+  color: var(--gold);
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.trust-list { list-style: none; }
+.trust-list li {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.trust-list li i {
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+
+.trust-list strong { display: block; margin-bottom: 5px; font-size: 1rem; }
+.trust-list p { font-size: 0.85rem; color: #94a3b8; line-height: 1.5; }
+
+.direct-contact {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.phone-link {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: white;
+  text-decoration: none;
+}
+
+/* =========================================
+   CONTACT RESPONSIVENESS
+   ========================================= */
+@media (max-width: 992px) {
+  .contact-container { grid-template-columns: 1fr; gap: 40px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .contact-trust-sidebar { position: static; }
+}

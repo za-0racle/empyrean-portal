@@ -1,0 +1,43 @@
+empyrean-lms/
+├── public/                 # Static assets that don't change
+│   ├── favicon.ico
+│   ├── robots.txt          # SEO for global search engines
+│   └── logos/              # High-res brand assets
+│
+├── src/                    # Where the magic happens
+│   ├── assets/             # Raw assets for processing
+│   │   ├── images/         # Optimized WebP photos
+│   │   ├── icons/          # SVG icons (flags, subject icons)
+│   │   └── styles/         # Global CSS/Sass
+│   │       ├── main.css    # Main entry style
+│   │       ├── theme.css   # Dark/Light mode variables
+│   │       └── dashboard.css # LMS-specific layout
+│   │
+│   ├── components/         # Reusable UI "LEGO" pieces
+│   │   ├── Navbar.js       # Global navigation
+│   │   ├── Footer.js       # Global footer
+│   │   ├── CourseCard.js   # Reusable course UI
+│   │   └── ProgressBar.js  # LMS progress tracker
+│   │
+│   ├── pages/              # The different "Views"
+│   │   ├── home/           # Landing page (what you have now)
+│   │   ├── catalog/        # Course browsing page
+│   │   ├── auth/           # Login / Sign up / Reset Password
+│   │   ├── dashboard/      # The Student's "Home"
+│   │   └── classroom/      # The Video Player / Lesson view
+│   │
+│   ├── middleware/         # Security and Logic
+│   │   ├── auth.js         # Checks if student is logged in
+│   │   └── i18n.js         # Internationalization (Currency/Language)
+│   │
+│   ├── services/           # API and Database connections
+│   │   ├── api.js          # Fetching course data
+│   │   └── storage.js      # Saving student progress
+│   │
+│   └── utils/              # Helper functions
+│       ├── formatters.js   # Currency and Date formatting
+│       └── validators.js   # Form validation (Email/Phone)
+│
+├── index.html              # Main Entry Point
+├── package.json            # Dependencies (if using npm/Vite)
+└── .env                    # Secret keys (API keys, DB URLs)
